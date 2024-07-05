@@ -1,14 +1,18 @@
+import 'package:first_flutter_app/ItemClasses/detail.dart';
+import 'package:first_flutter_app/ItemClasses/user_card.dart';
 import 'package:flutter/material.dart';
 import 'package:first_flutter_app/ItemClasses/user.dart';
+import 'package:uuid/uuid.dart';
 
-typedef OnDelete();
 
 class UserForm extends StatefulWidget {
-  final User user;
+  User user;
   final state = _UserFormState();
-  final OnDelete onDelete;
+  bool isEditing;
+  bool comesFromDetail;
+  final AddCallback? callback;
 
-  UserForm({Key? key, required this.user, required this.onDelete}) : super(key: key);
+  UserForm({Key? key, required this.isEditing, required this.comesFromDetail, this.callback, required this.user}) : super(key: key);
   @override
   _UserFormState createState() => state;
 
@@ -22,11 +26,23 @@ class _UserFormState extends State<UserForm> {
   late final TextEditingController phoneController = TextEditingController();
   late final TextEditingController jobController = TextEditingController();
   late final TextEditingController descriptionController = TextEditingController();
+
+  void initializeControllers() {
+    nameController.text = widget.user.name;
+    emailController.text = widget.user.email;
+    phoneController.text = widget.user.phone;
+    jobController.text = widget.user.job;
+    descriptionController.text = widget.user.description;
+  }
+
   @override
   Widget build(BuildContext context) {
+    initializeControllers();
     return Padding(
       padding: EdgeInsets.all(8),
-      child: Form(
+      child: (widget.comesFromDetail == true && widget.isEditing == false) ? 
+      Detail(user: widget.user, callback: widget.callback):
+      Form(
           key: form,
           child: Column(
             mainAxisSize: MainAxisSize.min,
@@ -118,14 +134,35 @@ class _UserFormState extends State<UserForm> {
               ),
               FilledButton(
                 onPressed: () {
-                  User user = User(name: nameController.text, email: emailController.text, phone: phoneController.text, job: jobController.text, description: descriptionController.text);
-                  Navigator.pop(context, user);
+                  User newUser;
+                  if (widget.isEditing == false) {
+                    newUser = User(id: Uuid().v8(),name: nameController.text, email: emailController.text, phone: phoneController.text, job: jobController.text, description: descriptionController.text);
+                  } else {
+                    newUser = User(id: widget.user.id,name: nameController.text, email: emailController.text, phone: phoneController.text, job: jobController.text, description: descriptionController.text);;
+                  }
+                  widget.user = newUser;
+                  widget.isEditing = false;
+                  widget.comesFromDetail = true;
+                  setState(() {
+                    
+                  });
                 }, 
-                child: Text('Agregar'),
+                child: widget.isEditing == false ? Text('Agregar'): Text('Finalizar edición'),
                 style: ButtonStyle(
                   backgroundColor: WidgetStatePropertyAll(Color(0xFF006494)),
                   ),
-                )
+                ),
+                widget.isEditing == true ? 
+                 FilledButton(
+                onPressed: () {
+                  widget.isEditing = false;
+                  setState(() {});
+                }, 
+                child: Text('Cancelar'),
+                style: ButtonStyle(
+                  backgroundColor: WidgetStatePropertyAll(Color(0xFF006494)),
+                  ),
+                ): Container()
            ]),
         )
     );
