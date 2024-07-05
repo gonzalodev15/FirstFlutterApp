@@ -1,6 +1,6 @@
-import 'package:first_flutter_app/ItemClasses/form.dart';
+import 'package:first_flutter_app/StatefulWidgets/form.dart';
 import 'package:first_flutter_app/ItemClasses/user.dart';
-import 'package:first_flutter_app/ItemClasses/user_card.dart';
+import 'package:first_flutter_app/StatefulWidgets/user_card.dart';
 import 'package:flutter/material.dart';
 
 class Detail extends StatefulWidget {

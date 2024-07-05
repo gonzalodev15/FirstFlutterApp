@@ -1,16 +1,35 @@
-# first_flutter_app
+# First Flutter App
 
-First Flutter App
+Esta es una aplicación básica para ver temas de navegación básicos e ingreso de información en formularios
 
-## Getting Started
+# Esta aplicación tiene 4 componentes principales
 
-This project is a starting point for a Flutter application.
+Las clases de objetos, en la que tenemos al usuario:
 
-A few resources to get you started if this is your first Flutter project:
+```dart
+class User {
+  String id;
+  String name;
+  String email;
+  String phone;
+  String job;
+  String description;
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+  User({this.id = '', this.name = '', this.email = '', this.phone = '', this.job = '', this.description = ''});
+}
+```
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Los StatefulWidgets, que son aquellos componentes que varían o tienen diferentes estados de acuerdo a las acciones del usuario, los cuales son: 
+
+El detalle del usuario, el formulario de ingreso de usuarios, el Multiform (que actúa como nexo entre los demás) y las cards de usuario para presentar la información
+
+Luego están las rutas, que son aquellos componentes estáticos o StatelessWidgets, los cuales conforman la pantalla del form, el empty state o estado vacío y la pantalla de detalle 
+
+Por último, el archivo main que se encarga de mostrar todo lo ya mencionado pero que no contiene código innecesario con tal de tener todo más limpio
+
+
+# Uso de la aplicación
+
+Al iniciar, se presentará la pantalla vacía y el usuario podrá agregar personas dando tap al botón flotante. Aquí este le llevará a una pantalla de formulario que le permitirá al usuario llenar los datos, finalizar la edición, editar e incluso borrar la información que ya ingresó. 
+
+Una vez el usuario agrega y vuelve a la pantalla principal, los cambios se reflejan y se muestra una lista simple del usuario y su trabajo, pudiendo el usuario entrar al detalle, visualizar la información completa y editar/eliminar según crea necesario.

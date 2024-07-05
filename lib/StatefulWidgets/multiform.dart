@@ -1,6 +1,6 @@
-import 'package:first_flutter_app/ItemClasses/empty_state.dart';
+import 'package:first_flutter_app/routes/empty_state.dart';
 import 'package:first_flutter_app/ItemClasses/user.dart';
-import 'package:first_flutter_app/ItemClasses/user_card.dart';
+import 'package:first_flutter_app/StatefulWidgets/user_card.dart';
 import 'package:first_flutter_app/routes/form_screen.dart';
 import 'package:flutter/material.dart';
 
